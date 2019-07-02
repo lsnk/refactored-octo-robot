@@ -18,3 +18,8 @@
 0. Для **prod** настроек нужно также собрать статику: `django-admin collectstatic`.
 0. Запускаем проект: `django-admin runserver`.
 0. Для запуска в **gunicorn**: `gunicorn -c src/app/gunicorn_conf.py app.wsgi`.
+
+### Проверка кода:
+0. `cd server/src`
+0. **isort**: `isort`
+0. **pylint**: `pylint --rcfile=.pylintrc app`

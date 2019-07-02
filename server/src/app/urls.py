@@ -1,3 +1,4 @@
+# pylint: disable=C0103
 from django.contrib import admin
 from django.urls import path
 

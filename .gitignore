@@ -1,0 +1,13 @@
+# IDE
+.idea
+
+# Byte-compiled
+__pycache__/
+*.py[cod]
+
+# Environments
+.env
+
+# Docker
+/server/docker-compose.yml
+.docker-volumes

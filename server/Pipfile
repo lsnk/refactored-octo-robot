@@ -1,0 +1,18 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pylint = "*"
+isort = "*"
+
+[packages]
+django = "*"
+gunicorn = "*"
+python-dotenv = "*"
+psycopg2-binary = "*"
+gevent = "*"
+
+[requires]
+python_version = "3.7"

@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 pylint = "*"
 isort = "*"
-pylint-django = "*"
+pylint-django = "==2.0.8"
 
 [packages]
 django = "*"
@@ -14,6 +14,7 @@ gunicorn = "*"
 python-dotenv = "*"
 psycopg2-binary = "*"
 gevent = "*"
+djangorestframework = "*"
 
 [requires]
 python_version = "3.7"

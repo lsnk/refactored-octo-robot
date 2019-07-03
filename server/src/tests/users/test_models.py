@@ -6,29 +6,26 @@ from tests.groups.factories import GroupFactory
 from tests.users.factories import UserFactory
 
 
+@pytest.mark.django_db
 class TestUsers:
 
-    @pytest.mark.django_db
     def test_new_user(self):
         """Tests new user creation."""
         user = UserFactory()
         assert user.groups.count() == 0
 
-    @pytest.mark.django_db
     def test_email_validation(self):
         """Tests email verification."""
         user = UserFactory(email='invalid_email')
         with pytest.raises(ValidationError):
             user.full_clean()
 
-    @pytest.mark.django_db
     def test_state_validation(self):
         """Tests state verification."""
         user = UserFactory(state='wrong_state')
         with pytest.raises(ValidationError):
             user.full_clean()
 
-    @pytest.mark.django_db
     def test_email_duplicates(self):
         """Tests duplicate emails."""
         user = UserFactory()
@@ -36,9 +33,9 @@ class TestUsers:
             UserFactory(email=user.email)
 
 
+@pytest.mark.django_db
 class TestGroupMembership:
 
-    @pytest.mark.django_db
     def test_user_groups(self):
         user = UserFactory()
         assert user.groups.count() == 0
@@ -54,7 +51,6 @@ class TestGroupMembership:
         user.groups.remove(group1)
         assert user.groups.count() == 1
 
-    @pytest.mark.django_db
     def test_group_members(self):
         group = GroupFactory()
         assert group.members.count() == 0

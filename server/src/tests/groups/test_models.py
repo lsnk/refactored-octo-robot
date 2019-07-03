@@ -3,9 +3,9 @@ import pytest
 from tests.groups.factories import GroupFactory
 
 
+@pytest.mark.django_db
 class TestGroups:
 
-    @pytest.mark.django_db
     def test_new_group(self):
         """Tests new group creation."""
         group = GroupFactory()

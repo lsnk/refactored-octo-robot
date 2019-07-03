@@ -1,7 +1,7 @@
-import pytest
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
+import pytest
 
 from app.users.enums import UserState
 from tests.groups.factories import GroupFactory

@@ -12,7 +12,7 @@ class User(models.Model):
         max_length=32,
         choices=UserState.choices(),
     )
-    created = models.DateTimeField('Created at', auto_now_add=True)
+    created = models.DateField('Created', auto_now_add=True)
 
     groups = models.ManyToManyField(
         'groups.Group',

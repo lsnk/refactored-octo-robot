@@ -11,3 +11,6 @@ __pycache__/
 # Docker
 /server/docker-compose.yml
 .docker-volumes
+
+# Tests
+.pytest_cache

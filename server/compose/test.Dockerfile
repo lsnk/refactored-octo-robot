@@ -11,7 +11,7 @@ RUN apk add --no-cache postgresql-client postgresql-dev
 
 # installing python packages
 COPY ./Pipfile* $PROJECT_ROOT/
-RUN pip install pipenv && pipenv install --system --deploy && apk del .build-deps
+RUN pip install pipenv && pipenv install --system --deploy --dev && apk del .build-deps
 
 # copying scripts
 COPY ./compose/*.sh $USR_LOCAL_BIN/
@@ -19,5 +19,11 @@ RUN chmod +x $USR_LOCAL_BIN/*.sh
 
 # coping app sources
 ADD ./src/app $PROJECT_ROOT/app
+
+# copying tests and configs
+COPY ./src/.isort.cfg $PROJECT_ROOT/
+COPY ./src/.pylintrc $PROJECT_ROOT/
+COPY ./src/pytest.ini $PROJECT_ROOT/
+ADD ./src/tests $PROJECT_ROOT/tests
 
 ENTRYPOINT ["entrypoint.sh"]

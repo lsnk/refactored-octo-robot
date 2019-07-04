@@ -6,7 +6,7 @@
 
 Код бекенда проекта находится в директории **server**.
 
-### Разработка:
+### Разработка
 0. Перейти в директорию **server**: `cd server`
 0. Скопировать **.env.template** в **.env**
 0. Скопировать **docker-compose.yml.template** в **docker-compose.yml** в директории **server**
@@ -19,9 +19,15 @@
 0. Запускаем проект: `django-admin runserver`
 0. Для запуска в **gunicorn**: `gunicorn -c src/app/gunicorn_conf.py app.wsgi`
 
-### Проверка кода:
+### Проверка кода
+
+#### Локально
 0. `cd server/src`
 0. `export PYTHONPATH=.`
 0. **isort**: `isort`
 0. **pylint**: `pylint --rcfile=.pylintrc app`
 0. **pytest**: `pytest`
+
+#### В контейнере
+0. `cd server`
+0. `docker-compose -f docker-compose.ci.yml up`

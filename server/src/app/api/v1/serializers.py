@@ -4,14 +4,40 @@ from app.groups.models import Group
 from app.users.models import User
 
 
+class GroupListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ('id', 'name', 'total_members')
+
+    total_members = serializers.IntegerField(read_only=True)
+
+
+class UserListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'id', 'first_name', 'last_name', 'email', 'state', 'created',
+            'groups'
+        )
+
+    groups = serializers.StringRelatedField(
+        many=True,
+        read_only=True,
+    )
+
+
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
-        fields = ('id', 'name', 'members')
+        fields = ('id', 'name', 'members', 'members_list')
 
+    # for reading members
+    members_list = UserListSerializer(source='members', many=True, read_only=True)
+
+    # for writing members
     members = serializers.PrimaryKeyRelatedField(
         many=True,
-        read_only=False,
+        write_only=True,
         queryset=User.objects.all(),
         allow_empty=True,
     )

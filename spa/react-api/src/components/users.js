@@ -60,7 +60,7 @@ class Users extends Component {
       return (
         <div>
           {this.state.users.map((user_data) => (
-            <User data={user_data}/>
+            <User key={user_data.id} data={user_data}/>
           ))}
         </div>
       );

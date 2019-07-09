@@ -1,6 +1,19 @@
 import React, { Component } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
+
+
+class ApiErrorAlert extends React.Component {
+  render() {
+    return (
+      <Alert show={this.props.show} variant="danger">
+        <Alert.Heading>{this.props.heading}</Alert.Heading>
+        <p>{this.props.message}</p>
+      </Alert>
+    );
+  }
+}
 
 
 class GroupEditor extends React.Component {
@@ -19,8 +32,15 @@ class GroupEditor extends React.Component {
 
     this.handleNameChange = this.handleNameChange.bind(this);
 
+    this.ShowError = this.ShowError.bind(this);
+
     this.state = {
       show: false,
+
+      showError: false,
+      errorHeading: '',
+      errorMessage: ',',
+
       name: '',
       members: {},
       users: [],
@@ -51,6 +71,7 @@ class GroupEditor extends React.Component {
   }
 
   handleShow() {
+    this.setState({ name: '', members: {}, showError: false });
     if (this.props.group_id) {
       this.loadData();
     }
@@ -61,9 +82,17 @@ class GroupEditor extends React.Component {
     this.setState({name: event.target.value});
   }
 
+  ShowError(heading, message) {
+    this.setState({
+      showError: true,
+      errorHeading: heading,
+      errorMessage: message,
+    });
+  }
+
   handleUserToggle(user) {
     if (user.id in this.state.members) {
-      delete  this.state.members[user.id];
+      delete this.state.members[user.id];
     }
     else {
       this.state.members[user.id] = user;
@@ -92,7 +121,25 @@ class GroupEditor extends React.Component {
             'Content-Type': 'application/json',
         },
     })
-    .then(response => {this.props.reloadAction(); this.handleClose()});
+    .then(response => {
+      if (response.ok) {
+        return response.json().then(() => {
+          this.props.reloadAction();
+          this.handleClose();
+        });
+      }
+      else {
+        return response.json().then(
+          json => {
+            this.ShowError(
+              'Groups API error',
+              JSON.stringify(json),
+            );
+          }
+        )
+      }
+    })
+    .catch(console.log);
   }
 
   handleDelete() {
@@ -117,6 +164,7 @@ class GroupEditor extends React.Component {
         <Modal.Header closeButton>
           <Modal.Title>{this.getTitle()}</Modal.Title>
         </Modal.Header>
+
         <Modal.Body>
           <label htmlFor="NameInput">Name</label>
           <input type="text" className="form-control" id="NameInput" value={this.state.name} onChange={this.handleNameChange}/>
@@ -134,7 +182,14 @@ class GroupEditor extends React.Component {
               </button>
             ))}
           </ul>
+          <div className="mt-3"/>
+        <ApiErrorAlert
+          show={this.state.showError}
+          heading={this.state.errorHeading}
+          message={this.state.errorMessage}
+        />
         </Modal.Body>
+
         <Modal.Footer>
           {}
           <Button variant="primary" onClick={this.handleSave}>
@@ -211,7 +266,6 @@ class Groups extends Component {
     }
 
     loadData() {
-      console.log(this.state.groups);
       fetch('http://localhost:8787/api/v1/groups/')
       .then(res => res.json())
       .then((data) => {

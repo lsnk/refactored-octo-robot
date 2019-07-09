@@ -61,7 +61,7 @@ class TestExistingGroupsViewSet(BaseTestGroupsViewSet):
     def test_group_members(self):
         response = self.client.get(self.detail_url)
         assert response.status_code == status.HTTP_200_OK
-        assert response.json()['members'] == []
+        assert response.json()['members_list'] == []
 
         members_ids = [UserFactory().id, UserFactory().id]
         response = self.client.patch(
@@ -71,7 +71,10 @@ class TestExistingGroupsViewSet(BaseTestGroupsViewSet):
 
         response = self.client.get(self.detail_url)
         assert response.status_code == status.HTTP_200_OK
-        assert set(response.json()['members']) == set(members_ids)
+        assert (
+            set(m['id'] for m in response.json()['members_list'])
+            == set(members_ids)
+        )
 
 
 @pytest.mark.django_db

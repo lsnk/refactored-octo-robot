@@ -14,6 +14,9 @@ from .serializers import UserSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
+
+    """User methods viewset."""
+
     queryset = User.objects.all()
 
     serializer_class = UserSerializer
@@ -25,6 +28,7 @@ class UserViewSet(viewsets.ModelViewSet):
     filterset_class = UserFilter
 
     def get_serializer_class(self):
+        """Return special serializer for `list` method."""
         if self.action == 'list':
             return self.list_serializer_class
 
@@ -32,6 +36,9 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 class GroupViewSet(viewsets.ModelViewSet):
+
+    """Group methods viewset."""
+
     queryset = Group.objects.all()
 
     serializer_class = GroupSerializer
@@ -43,6 +50,7 @@ class GroupViewSet(viewsets.ModelViewSet):
     filterset_fields = ('name',)
 
     def get_queryset(self):
+        """Annotate queryset with `total_members`."""
         queryset = super().get_queryset()
         if self.action == 'list':
             queryset = queryset.annotate(total_members=Count('members'))
@@ -50,6 +58,7 @@ class GroupViewSet(viewsets.ModelViewSet):
         return queryset
 
     def get_serializer_class(self):
+        """Return special serializer for `list` method."""
         if self.action == 'list':
             return self.list_serializer_class
 

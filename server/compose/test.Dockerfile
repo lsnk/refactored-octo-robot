@@ -22,8 +22,10 @@ ADD ./src/app $PROJECT_ROOT/app
 
 # copying tests and configs
 COPY ./src/.isort.cfg $PROJECT_ROOT/
+COPY ./src/.pydocstylerc $PROJECT_ROOT/
 COPY ./src/.pylintrc $PROJECT_ROOT/
 COPY ./src/pytest.ini $PROJECT_ROOT/
+
 ADD ./src/tests $PROJECT_ROOT/tests
 
 ENTRYPOINT ["entrypoint.sh"]

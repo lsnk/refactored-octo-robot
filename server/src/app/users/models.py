@@ -4,6 +4,9 @@ from .enums import UserState
 
 
 class User(models.Model):
+
+    """User model."""
+
     first_name = models.CharField('First name', max_length=128, db_index=True)
     last_name = models.CharField('Last name', max_length=128, db_index=True)
     email = models.EmailField('Email', unique=True, db_index=True)
@@ -25,6 +28,9 @@ class User(models.Model):
 
 
 class GroupMembership(models.Model):
+
+    """User membership in Group."""
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     group = models.ForeignKey('groups.Group', on_delete=models.CASCADE)
 

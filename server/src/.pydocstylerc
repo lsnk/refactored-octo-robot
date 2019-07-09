@@ -1,0 +1,10 @@
+[pydocstyle]
+inherit = false
+match-dir = ^(?!migrations|tests).*
+match = (?!test_|manage|apps|admin).*\.py
+ignore =
+    D100,  # Missing docstring in public module
+    D104,  # Missing docstring in public package
+    D211,  # No blank lines allowed before class docstring
+    D105,  # Missing docstring in magic method
+    D106,  # Missing docstring in public nested class

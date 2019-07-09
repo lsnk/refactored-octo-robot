@@ -4,6 +4,9 @@ from .models import User
 
 
 class UserFilter(django_filters.FilterSet):
+
+    """Filters for User fields."""
+
     class Meta:
         model = User
         fields = {

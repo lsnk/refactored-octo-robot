@@ -5,6 +5,9 @@ from app.users.models import User
 
 
 class GroupListSerializer(serializers.ModelSerializer):
+
+    """Group serializer for list method."""
+
     class Meta:
         model = Group
         fields = ('id', 'name', 'total_members')
@@ -13,6 +16,9 @@ class GroupListSerializer(serializers.ModelSerializer):
 
 
 class UserListSerializer(serializers.ModelSerializer):
+
+    """User serializer for list method."""
+
     class Meta:
         model = User
         fields = (
@@ -27,12 +33,19 @@ class UserListSerializer(serializers.ModelSerializer):
 
 
 class GroupSerializer(serializers.ModelSerializer):
+
+    """Group serializer for details method."""
+
     class Meta:
         model = Group
         fields = ('id', 'name', 'members', 'members_list')
 
     # for reading members
-    members_list = UserListSerializer(source='members', many=True, read_only=True)
+    members_list = UserListSerializer(
+        source='members',
+        many=True,
+        read_only=True
+    )
 
     # for writing members
     members = serializers.PrimaryKeyRelatedField(
@@ -44,6 +57,9 @@ class GroupSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+
+    """User serializer for details method."""
+
     class Meta:
         model = User
         fields = (

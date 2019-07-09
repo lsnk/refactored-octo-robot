@@ -25,6 +25,7 @@
 0. `cd server/src`
 0. `export PYTHONPATH=.`
 0. **isort**: `isort`
+0. **pydocstyle**: `pydocstyle`
 0. **pylint**: `pylint --rcfile=.pylintrc app`
 0. **pytest**: `pytest`
 

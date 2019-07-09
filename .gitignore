@@ -14,6 +14,3 @@ __pycache__/
 
 # Tests
 .pytest_cache
-
-# Libraries
-node_modules

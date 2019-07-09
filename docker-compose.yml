@@ -29,12 +29,23 @@ services:
       - ./.docker-volumes/static:/static
     command: runserver.sh
 
+  spa:
+    build:
+      context: ./spa/
+    env_file:
+      - .env
+    volumes:
+      - ./.docker-volumes/spa_index:/index
+      - ./.docker-volumes/static:/static
+
   nginx:
     image: nginx:latest
     ports:
       - "8787:8000"
     volumes:
-      - ./server/compose/nginx:/etc/nginx/conf.d
+      - ./compose/nginx:/etc/nginx/conf.d
+      - ./.docker-volumes/spa_index:/spa_index
       - ./.docker-volumes/static:/static
     depends_on:
       - api
+      - spa

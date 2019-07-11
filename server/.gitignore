@@ -1,0 +1,12 @@
+# Byte-compiled
+__pycache__/
+*.py[cod]
+
+# Environments
+*.env
+
+# Docker
+docker-compose.yml
+
+# Tests
+.pytest_cache

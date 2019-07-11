@@ -17,8 +17,6 @@ services:
     build:
       context: ./server/
       dockerfile: ./compose/Dockerfile
-    depends_on:
-      - postgres
     env_file:
       - .env
     environment:
@@ -28,10 +26,14 @@ services:
     volumes:
       - ./.docker-volumes/static:/static
     command: runserver.sh
+    depends_on:
+      - postgres
 
   spa:
     build:
       context: ./spa/
+      args:
+        REACT_APP_API_URL: http://localhost:8787/api/v1/
     env_file:
       - .env
     volumes:
@@ -41,7 +43,7 @@ services:
   nginx:
     image: nginx:latest
     ports:
-      - "8787:8000"
+      - '8787:8000'
     volumes:
       - ./compose/nginx:/etc/nginx/conf.d
       - ./.docker-volumes/spa_index:/spa_index

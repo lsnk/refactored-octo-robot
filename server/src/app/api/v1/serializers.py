@@ -26,7 +26,7 @@ class UserListSerializer(serializers.ModelSerializer):
             'groups'
         )
 
-    groups = serializers.StringRelatedField(
+    groups = GroupListSerializer(
         many=True,
         read_only=True,
     )
@@ -64,12 +64,20 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = (
             'id', 'first_name', 'last_name', 'email', 'state', 'created',
-            'groups'
+            'groups', 'groups_list'
         )
 
+    # for reading groups
+    groups_list = GroupListSerializer(
+        source='groups',
+        many=True,
+        read_only=True,
+    )
+
+    # for writing groups
     groups = serializers.PrimaryKeyRelatedField(
         many=True,
-        read_only=False,
+        write_only=True,
         queryset=Group.objects.all(),
         allow_empty=True,
     )

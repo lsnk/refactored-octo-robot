@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import Users from './components/users';
-import Groups from "./components/groups";
+import React, {Component} from 'react';
+import EditableUsers from './components/EditableUsers';
+import EditableGroups from './components/EditableGroups';
+
 
 class App extends Component {
 
@@ -11,12 +12,12 @@ class App extends Component {
           <div className="col-lg-1"/>
           <div className="col-lg-4">
             <center><h2>Users</h2></center>
-            <Users/>
+            <EditableUsers/>
           </div>
           <div className="col-lg-2"/>
           <div className="col-lg-4">
             <center><h2>Groups</h2></center>
-            <Groups/>
+            <EditableGroups/>
           </div>
           <div className="col-lg-1"/>
         </div>

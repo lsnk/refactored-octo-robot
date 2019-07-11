@@ -9,6 +9,6 @@ services:
     env_file:
       - .env
     ports:
-      - "15432:5432"
+      - '15432:5432'
     volumes:
       - ./.docker-volumes/dev/postgresql-data:/var/lib/postgresql/data

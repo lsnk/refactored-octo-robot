@@ -2,6 +2,9 @@
 
 Тестовый проект.
 
+## Запуск
+`./runme.sh` (нужно иметь установленный docker и docker-compose).
+
 ## Бекенд
 
 Код бекенда проекта находится в директории **server**.
@@ -32,3 +35,13 @@
 #### В контейнере
 0. `cd server`
 0. `docker-compose -f docker-compose.ci.yml up`
+
+
+## Фронтенд
+
+Код SPA находится в директории **spa**.
+
+### Разработка
+0. Перейти в директорию **spa**: `cd spa`
+0. `yarn install`
+0. `REACT_APP_API_URL=<Путь к апи сервера> yarn start`

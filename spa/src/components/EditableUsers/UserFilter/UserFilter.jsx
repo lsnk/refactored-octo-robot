@@ -10,7 +10,7 @@ class UserFilter extends Component {
   }
 
   onlyActiveChange() {
-    this.props.handler({onlyActive: !this.props.onlyActive})
+    this.props.handler({onlyActiveUsers: !this.props.onlyActive})
   }
 
   render() {
